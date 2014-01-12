@@ -52,7 +52,8 @@ class composer(
   $curl_package    = $composer::params::curl_package,
   $wget_package    = $composer::params::wget_package,
   $composer_home   = $composer::params::composer_home,
-  $suhosin_enabled = $composer::params::suhosin_enabled
+  $suhosin_enabled = $composer::params::suhosin_enabled,
+  $required_packages = $composer::params::required_packages
 ) inherits composer::params {
 
   Exec { path => "/bin:/usr/bin/:/sbin:/usr/sbin:${target_dir}" }
@@ -81,6 +82,9 @@ class composer(
     }
     default: {
       fail("The param download_method ${download_method} is not valid. Please set download_method to curl or wget.")
+    }
+    each($required_packages) |$package| {
+        $download_require = contact($download_require, [Package[$package]);
     }
   }
 

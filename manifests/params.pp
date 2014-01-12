@@ -13,6 +13,7 @@
 #
 class composer::params {
   $composer_home = $::composer_home
+  $required_packages = []
 
   case $::osfamily {
     'Debian': {
