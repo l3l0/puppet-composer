@@ -84,7 +84,7 @@ class composer(
       fail("The param download_method ${download_method} is not valid. Please set download_method to curl or wget.")
     }
     each($required_packages) |$package| {
-        $download_require = contact($download_require, [Package[$package]);
+        $download_require = concat($download_require, [Package[$package]);
     }
   }
 
